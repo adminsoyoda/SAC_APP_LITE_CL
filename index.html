@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>SAC Ventas</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<script src="public/js/jQuery/jQuery-2.1.4.min.js"></script>
+	<script src="public/js/jQueryMobile/jquery.mobile-1.4.5.min.js"></script>
+	<script src="public/js/APP.js"></script>
+	<script src="public/js/Sync.js"></script>
+	<script src="public/js/jQuery/jquery-ui.js"></script>
+
+    <script src="cordova.js"></script>
+	<script src="public/js/sync/PushNotification.js"></script>
+	<script src="public/js/sync/index.js"></script>
+	<script src="public/js/gps.js"></script>
+	<script src="public/js/gpsController.js"></script>
+    <script src="public/js/jQuery/numeric.js"></script>
+	    
+	<link href="public/css/jQueryMobile/jquery.mobile.icons-1.4.5.min.css" rel="stylesheet" />
+	<link href="public/css/jQueryMobile/jquery.mobile.structure-1.4.5.min.css" rel="stylesheet" />
+	<link href="public/css/jQueryMobile/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+    <link href="public/css/main.css" rel="stylesheet" />
+
+    
+    <link href="public/css/jQuery/jquery-ui.css" rel="stylesheet" />
+
+	<script type="text/javascript">
+	    $(document).ready(function(){  
+	       app.initialize(function(){});            
+	       contentPage('pages/login.html');             
+	       app.onDeviceReady();      
+	    });
+	    
+	    function getCoordenatesGPS(){
+	       
+	        objGps.continueGps(function(){//valida si gps esta activo
+	             
+	             var db = window.openDatabase(DATABASE_NAME, DATABASE_VERSION, DATABASE_DESCRIPTION, DATABASE_SIZE);
+	             db.transaction(function(tx){
+	                 tx.executeSql("INSERT INTO orden_venta(DESCRIPCION)VALUES(?)", ['ES UNA ORDEN DE VENTA FICTICIO O REGISTRO DE PRUEBA'], function(tx,results){
+	                    var NEW_ID=results.insertId;
+	                    document.getElementById("ID_ORDEN").value = NEW_ID;
+	                    ///enviar actualizacion para obtener coordendas
+	                    objGps.getCoordenates(function(){},function(){},true,"update orden_venta set LONGITUD={LONGITUD},PRECISION={PRECISION},LATITUD={LATITUD} where ID="+NEW_ID+"");
+	                    
+	            });
+	         });
+	       },function(){});                           
+	    }
+
+	    function readGPS(){
+	        var NEW_ID=document.getElementById("ID_ORDEN").value;
+	        BDConsulta("select ID,LONGITUD,LATITUD,PRECISION from orden_venta where ID="+NEW_ID+"",function(row){
+	           alert("LONGITUD:"+row["LONGITUD"]+",LATITUD:"+row["LATITUD"]+",PRECISION:"+row["PRECISION"]);
+	        });
+	        BDConsulta("select ID,LONGITUD,LATITUD,PRECISION,ESTADO,FECHA_CREACION,ULTIMA_FECHA from APP_GPS_REGISTRO where ID="+NEW_ID+"",function(row){
+	           alert("LONGITUD:"+row["LONGITUD"]+",LATITUD:"+row["LATITUD"]+",PRECISION:"+row["PRECISION"]+",E:"+row["ESTADO"]+",FAC:"+row["FECHA_CREACION"]+",Fult:"+row["ULTIMA_FECHA"]);
+	        });
+	    }      
+	</script>
+</head>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){  
+        try {
+            app.initialize(function(){});            
+			contentPage('pages/login.html');             
+			app.onDeviceReady();      
+        }
+        catch(err) {
+            alert(err.message);
+        }
+    });
+    
+    $(document).on( "click", ".show-page-loading-msg", function() {
+        var $this = $( this ),
+        theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+        msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+        textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+        textonly = !!$this.jqmData( "textonly" );
+        html = $this.jqmData( "html" ) || "";
+        $.mobile.loading( 'show', {
+          text: msgText,
+          textVisible: textVisible,
+          theme: theme,
+          textonly: textonly,
+          html: html
+        });
+        $("#loader_lock").show();
+    })
+    .on( "click", ".hide-page-loading-msg", function() {
+        $.mobile.loading( "hide" );
+        $("#loader_lock").hide();
+    });
+
+    function getCoordenatesGPS(){
+       
+        objGps.continueGps(function(){//valida si gps esta activo
+             
+             var db = window.openDatabase(DATABASE_NAME, DATABASE_VERSION, DATABASE_DESCRIPTION, DATABASE_SIZE);
+             db.transaction(function(tx){
+                 tx.executeSql("INSERT INTO orden_venta(DESCRIPCION)VALUES(?)", ['ES UNA ORDEN DE VENTA FICTICIO O REGISTRO DE PRUEBA'], function(tx,results){
+                    var NEW_ID=results.insertId;
+                    document.getElementById("ID_ORDEN").value = NEW_ID;
+                    ///enviar actualizacion para obtener coordendas
+                    objGps.getCoordenates(function(){},function(){},true,"update orden_venta set LONGITUD={LONGITUD},PRECISION={PRECISION},LATITUD={LATITUD} where ID="+NEW_ID+"");
+                    
+            });
+         });
+       },function(){});                           
+    }
+
+    function readGPS(){
+        var NEW_ID=document.getElementById("ID_ORDEN").value;
+        BDConsulta("select ID,LONGITUD,LATITUD,PRECISION from orden_venta where ID="+NEW_ID+"",function(row){
+           alert("LONGITUD:"+row["LONGITUD"]+",LATITUD:"+row["LATITUD"]+",PRECISION:"+row["PRECISION"]);
+        });
+        BDConsulta("select ID,LONGITUD,LATITUD,PRECISION,ESTADO,FECHA_CREACION,ULTIMA_FECHA from APP_GPS_REGISTRO where ID="+NEW_ID+"",function(row){
+           alert("LONGITUD:"+row["LONGITUD"]+",LATITUD:"+row["LATITUD"]+",PRECISION:"+row["PRECISION"]+",E:"+row["ESTADO"]+",FAC:"+row["FECHA_CREACION"]+",Fult:"+row["ULTIMA_FECHA"]);
+        });
+    }      
+</script>
+
+<body>
+    <div data-role="page" id="content_master"></div>
+    <div id='loader_lock' style='position: absolute;top: 0px;width: 100%;height: 100%;z-index: 9999999999; display: none;'> 
+    <div id='sync_sys' style='display:none' ></div>
+
+    <button id="loader_sys_btn_show" class="show-page-loading-msg cus-display-none" data-theme="b" data-align="center" data-textonly="true" data-textvisible="true" data-msgtext="Custom Loader" data-html="<div style='text-align:center'><span class='ui-bar ui-shadow ui-overlay-d ui-corner-all'><img src='public/img/loading.gif' style='width: 50px;'><h2>Espere por favor...</h2></span></div>" data-iconpos="right"></button>
+    <button class="hide-page-loading-msg cus-display-none" id="loader_sys_btn_hide"></button>
+    <div class="app" style='display:none'> 
+    <div id="message_sync">...</div>
+    <div id="deviceready" class="blink"> 
+        <p class="event listening">Connecting to Device</p> 
+        <p class="event received">Device is Ready</p> 
+    </div>      
+</body>
+
+</html>
