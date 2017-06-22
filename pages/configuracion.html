@@ -1,7 +1,7 @@
 ﻿<script>
     (function() {
         $("#URL_SINCRONIZAR").val(syncServer);
-        setIdRegistered();
+        //setIdRegistered();
     })();
 
     function Test() {
@@ -30,12 +30,12 @@
     }
 
     function GuardarConfiguracion() {
-        //if ($("#IDGOOGLE").val() == '')      { alert("Ingresar IDGOOGLE..."); $("#IDGOOGLE").focus(); return true; }
+        if ($("#IDGOOGLE").val() == '')      { alert("Ingresar IDGOOGLE..."); $("#IDGOOGLE").focus(); return true; }
         if ($("#lista_usuarios").val() == '') { alert("Seleccionar Vendedor..."); $("#lista_usuarios").focus(); return true; }
 
         var dataPost = {
             CODIGOINTERNO: $("#lista_usuarios").val(),
-            IDGOOGLE: ""//$("#IDGOOGLE").val()
+            IDGOOGLE: $("#IDGOOGLE").val()
         };
 
         AjaxSAC(syncServer + "/GuardarConfiguracion", dataPost, true, function (callback) {
@@ -60,29 +60,6 @@
         });
     }
 
-    /*window.onNotification = function (e) {
-        switch (e.event) {
-            case 'registered':
-                if (e.regid.length > 0) {
-                    //console.log("Regid " + e.regid);
-                    alert('Google ID API = ' + e.regid);
-                    //Cuando se registre le pasamos el regid al input 
-                    document.getElementById('IDGOOGLE').value = e.regid;
-                }
-                break;
-
-            case 'message':
-                // NOTIFICACION!!! 
-                alert('Mensaje de prueba = ' + e.message + ' msgcnt = ' + e.msgcnt);
-                break;
-            case 'error':
-                alert('GCM error = ' + e.msg);
-                break;
-            default:
-                alert('An unknown GCM event has occurred');
-                break;
-        }
-    }*/
 </script>
 
 <div role="main" class="ui-content jqm-content" style="margin: 20px;border: 1px solid #CCC;">
@@ -117,7 +94,7 @@
         </div>
     </div>
 
-    <input type="hidden" class="form-control" aria-label="..." disabled="disabled" id='CODIGOINTERNO'/>
+    <input type="hidden" class="form-control" aria-label="..." disabled="disabled" id='CODIGOINTERNO' />
 
     <br>
     <div class="ui-field-contain">
@@ -128,7 +105,7 @@
     
     <br>
     
-    <!--<input type="text" name="IDGOOGLE" id="IDGOOGLE" value="" placeholder="ID GOOGLE" readonly>-->
+    <input type="text" name="IDGOOGLE" id="IDGOOGLE" value="11111111111111111111111111111111111111111111111111111" placeholder="ID GOOGLE" readonly>
     <div class="app" style='display:none'> 
         <h1>PhoneGap</h1>
         <div id="deviceready" class="blink"> 
