@@ -30,12 +30,12 @@
     }
 
     function GuardarConfiguracion() {
-        if ($("#IDGOOGLE").val() == '')      { alert("Ingresar IDGOOGLE..."); $("#IDGOOGLE").focus(); return true; }
+        //if ($("#IDGOOGLE").val() == '')      { alert("Ingresar IDGOOGLE..."); $("#IDGOOGLE").focus(); return true; }
         if ($("#lista_usuarios").val() == '') { alert("Seleccionar Vendedor..."); $("#lista_usuarios").focus(); return true; }
 
         var dataPost = {
             CODIGOINTERNO: $("#lista_usuarios").val(),
-            IDGOOGLE: $("#IDGOOGLE").val()
+            IDGOOGLE: ""//$("#IDGOOGLE").val()
         };
 
         AjaxSAC(syncServer + "/GuardarConfiguracion", dataPost, true, function (callback) {
@@ -60,7 +60,7 @@
         });
     }
 
-    window.onNotification = function (e) {
+    /*window.onNotification = function (e) {
         switch (e.event) {
             case 'registered':
                 if (e.regid.length > 0) {
@@ -82,7 +82,7 @@
                 alert('An unknown GCM event has occurred');
                 break;
         }
-    }
+    }*/
 </script>
 
 <div role="main" class="ui-content jqm-content" style="margin: 20px;border: 1px solid #CCC;">
@@ -128,7 +128,7 @@
     
     <br>
     
-    <input type="text" name="IDGOOGLE" id="IDGOOGLE" value="" placeholder="ID GOOGLE" readonly>
+    <!--<input type="text" name="IDGOOGLE" id="IDGOOGLE" value="" placeholder="ID GOOGLE" readonly>-->
     <div class="app" style='display:none'> 
         <h1>PhoneGap</h1>
         <div id="deviceready" class="blink"> 

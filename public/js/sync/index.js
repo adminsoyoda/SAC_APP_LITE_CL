@@ -28,7 +28,7 @@ var app = {
         var receivedElement = parentElement.querySelector('.received');
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-        console.log('Received Event: ' + id);
+        /*console.log('Received Event: ' + id);
         var pushNotification = window.plugins.pushNotification;
         if (device.platform == 'android' || device.platform == 'Android') {
             //alert("Register called");
@@ -38,7 +38,7 @@ var app = {
         else {
             //alert("Register called");
             pushNotification.register(this.successHandler, this.errorHandler, { "badge": "true", "sound": "true", "alert": "true", "ecb": "app.onNotificationAPN" });
-        }
+        }*/
     },
     // result contains any message sent from the plugin call 
     successHandler: function (result) {
@@ -47,7 +47,8 @@ var app = {
     errorHandler: function (error) {
         alert(error);
     },
-    onNotificationGCM: function (e) {
+    
+    /*onNotificationGCM: function (e) {
         var message_sync_div = $("#message_sync");
          
         switch (e.event) {
@@ -89,10 +90,10 @@ var app = {
             var snd = new Media(event.sound);
             snd.play();
         }
-    }
+    }*/
 };
 
-function setIdRegistered(){//asiginar id de google
+/*function setIdRegistered(){//asiginar id de google
     //alert(registerId);
     document.getElementById('IDGOOGLE').value = registerId;
-}
+}*/
