@@ -2,7 +2,6 @@
 <widget id="com.phonegap.SacLite"
         version="3.5.0"
         xmlns="http://www.w3.org/ns/widgets"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>SAC Lite CL</name>
     <description>
@@ -61,9 +60,6 @@
 
     <platform name="android">
         <allow-intent href="market:*" />
-        
-        <preference name="android-build-tool" value="gradle" /> <!-- Phonegap Build only -->
-        
     </platform>
 
     <platform name="ios">
