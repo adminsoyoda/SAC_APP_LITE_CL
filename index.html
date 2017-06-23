@@ -27,11 +27,16 @@
     <link href="public/css/jQuery/jquery-ui.css" rel="stylesheet" />
 
 	<script type="text/javascript">
-	    $(document).ready(function(){  
-	       app.initialize(function(){});            
-	       contentPage('pages/login.html');             
-	       app.onDeviceReady();      
-	    });
+	    (function() {
+            alert("nada0");
+        });
+
+        $(document).ready(function(){ 
+            alert("nada1");
+            app.initialize(function(){});            
+            contentPage('pages/login.html');             
+            app.onDeviceReady();      
+        });
 	    
 	    function getCoordenatesGPS(){
 	       
