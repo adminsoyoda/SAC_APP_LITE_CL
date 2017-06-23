@@ -39,8 +39,6 @@
     <platform name="android">
         <allow-intent href="market:*" />
 
-        <preference name="android-minSdkVersion" value="15"/>
-
         <plugin name="cordova-plugin-file" version="*" />
         <plugin name="cordova-plugin-battery-status" source="npm" spec="~1.1.1"/>
         <plugin name="cordova-plugin-media-capture" source="npm" spec="~1.2.0"/>
@@ -62,7 +60,7 @@
         <plugin name="cordova-plugin-file" version="*" />
         <plugin name="cordova-plugin-datepicker" version="*" />
 
-        <preference name="android-build-tool" value="gradle" /> <!-- Phonegap Build only -->
+      
         
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.BLUETOOTH" />
